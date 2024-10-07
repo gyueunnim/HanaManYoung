@@ -1,0 +1,106 @@
+{
+  "isSuccess": true,
+  "code": 200,
+  "message": "성공입니다.",
+  "data": {
+    "challengeInfo": [
+      {
+        "id": 0,
+        "name": "오늘의 퀴즈",
+        "explain": "오늘도 경제 상식을 길러봐요",
+        "point": 15
+      },
+      {
+        "id": 1,
+        "name": "소비계획 / 가계부",
+        "explain": "소비계획과 가계부를 작성해봐요",
+        "point": 10
+      },
+      {
+        "id": 2,
+        "name": "챌린지 적금",
+        "explain": "사고 싶은 물건을 위해 함께 돈을 모아요",
+        "point": ""
+      },
+      {
+        "id": 3,
+        "name": "하나타로",
+        "explain": "오늘의 금전운은 어떨까요?",
+        "point": 5
+      },
+      {
+        "id": 4,
+        "name": "용돈 조르기",
+        "explain": "부모님의 챌린지를 받아보세요",
+        "point": 10
+      }
+    ],
+    "calendar": [
+      {
+        "start": "2024-07-31",
+        "color": "rgb(209 213 219)"
+      },
+      {
+        "start": "2024-08-02",
+        "color": "rgb(147 197 253)"
+      },
+      {
+        "start": "2024-08-03",
+        "color": "rgb(209 213 219)"
+      },
+      {
+        "start": "2024-08-04",
+        "color": "rgb(147 197 253)"
+      },
+      {
+        "start": "2024-08-01",
+        "color": "rgb(147 197 253)"
+      }
+    ],
+    "saving": {
+      "name": "에어팟 구매",
+      "targetMoney": 120000,
+      "monthlyMoney": 30000,
+      "currentMoney": 90000,
+      "remainMoney": 30000,
+      "point": 250,
+      "remainMonth": "1달",
+      "period": "2024년 07월 21일 ~ 2024년 10월 21일"
+    },
+    "hanaMoney": {
+      "total": 3000,
+      "pointData": [
+        {
+          "time": "7월 26일 금 19:12",
+          "amount": "+50P",
+          "type": "계좌이체"
+        },
+        {
+          "time": "7월 26일 금 19:12",
+          "amount": "+50P",
+          "type": "오늘의 퀴즈"
+        },
+        {
+          "time": "7월 26일 금 19:12",
+          "amount": "+50P",
+          "type": "소비계획 / 가계부"
+        },
+        {
+          "time": "7월 26일 금 19:12",
+          "amount": "+50P",
+          "type": "하나타로"
+        },
+        {
+          "time": "7월 26일 금 19:12",
+          "amount": "+50P",
+          "type": "챌린지 적금"
+        },
+        {
+          "time": "7월 26일 금 19:12",
+          "amount": "+50P",
+          "type": "용돈 조르기"
+        }
+      ]
+    }
+  }
+}

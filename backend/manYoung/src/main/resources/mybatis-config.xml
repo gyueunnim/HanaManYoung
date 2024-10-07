@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.hana.manYoung.model.User" alias="User"/>
+        <typeAlias type="com.hana.manYoung.dto.PlannerItemsDTO" alias="PlannerItemsDTO"/>
+        <typeAlias type="com.hana.manYoung.model.Planner" alias="Planner"/>
+        <typeAlias type="com.hana.manYoung.model.PlannerItem" alias="PlannerItem"/>
+        <typeAlias type="com.hana.manYoung.model.Diary" alias="Diary"/>
+        <typeAlias type="com.hana.manYoung.model.DiaryItem" alias="DiaryItem"/>
+        <typeAlias type="com.hana.manYoung.model.ChallengeRecord" alias="ChallengeRecord"/>
+        <typeAlias type="com.hana.manYoung.dto.ChallengeInfoDTO" alias="ChallengeInfoDTO"/>
+        <typeAlias type="com.hana.manYoung.dto.ChallengeRecordDTO" alias="ChallengeRecordDTO"/>
+        <typeAlias type="com.hana.manYoung.dto.ConsumeDTO" alias="ConsumeDTO"/>
+        <typeAlias type="com.hana.manYoung.model.Quiz" alias="Quiz"/>
+        <typeAlias type="com.hana.manYoung.dto.DiaryItemMaxDTO" alias="DiaryItemMaxDTO"/>
+        <typeAlias type="com.hana.manYoung.model.ChallengeSaving" alias="ChallengeSaving"/>
+        <typeAlias type="com.hana.manYoung.model.Relation" alias="Relation"/>
+        <typeAlias type="com.hana.manYoung.dto.RelationDTO" alias="RelationDTO"/>
+        <typeAlias type="com.hana.manYoung.model.PocketMoney" alias="PocketMoney"/>
+        <typeAlias type="com.hana.manYoung.dto.PocketMoneyDTO" alias="PocketMoneyDTO"/>
+        <typeAlias type="com.hana.manYoung.model.Rank" alias="Rank"/>
+        <typeAlias type="com.hana.manYoung.model.News" alias="News"/>
+        <typeAlias type="com.hana.manYoung.model.ChatRoom" alias="ChatRoom"/>
+        <typeAlias type="com.hana.manYoung.dto.ChatRoomUserDTO" alias="ChatRoomUserDTO"/>
+        <typeAlias type="com.hana.manYoung.model.ChatMessage" alias="ChatMessage"/>
+        <typeAlias type="com.hana.manYoung.dto.UserDTO" alias="UserDTO"/>
+    </typeAliases>
+</configuration>

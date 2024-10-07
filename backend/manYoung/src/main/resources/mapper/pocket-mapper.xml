@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Pocket">
+    <insert id="registerPocket" parameterType="PocketMoney">
+        insert into pocket_money(pocket_money_amount, pocket_money_status, pocket_money_date, pocket_money_child, pocket_money_parent) values(#{pocket_money_amount}, 'PS_03', #{pocket_money_date}, #{pocket_money_child}, #{pocket_money_parent})
+    </insert>
+    <select id="getPocketChild" parameterType="String" resultType="PocketMoneyDTO">
+        SELECT pm.*, c.code_name
+        FROM hana.pocket_money pm
+                 INNER JOIN hana.code c
+                            ON pm.pocket_money_status = c.code_id
+        WHERE pm.pocket_money_child = #{user_id}
+          AND pm.pocket_money_status != 'PS_02' AND pm.pocket_money_status != 'PS_04'
+        ORDER BY pm.pocket_money_date DESC
+    </select>
+
+    <select id="getPocketParent" parameterType="String" resultType="PocketMoneyDTO">
+        SELECT pm.*, c.code_name
+        FROM hana.pocket_money pm
+                 INNER JOIN hana.code c
+                            ON pm.pocket_money_status = c.code_id
+        WHERE pm.pocket_money_parent = #{user_id}
+          AND pm.pocket_money_status != 'PS_02' AND pm.pocket_money_status != 'PS_04'
+        ORDER BY pm.pocket_money_date DESC
+    </select>
+
+    <select id="getPocketSuccess" parameterType="String" resultType="PocketMoneyDTO">
+        SELECT pm.*, c.code_name
+        FROM hana.pocket_money pm
+                 INNER JOIN hana.code c
+                            ON pm.pocket_money_status = c.code_id
+        WHERE pm.pocket_money_child = #{user_id}
+          AND pm.pocket_money_status = 'PS_02'
+        ORDER BY pm.pocket_money_date DESC
+    </select>
+
+    <select id="getPocketList" parameterType="String" resultType="PocketMoneyDTO">
+        SELECT pm.*, c.code_name
+        FROM hana.pocket_money pm
+                 INNER JOIN hana.code c
+                            ON pm.pocket_money_status = c.code_id
+        WHERE pm.pocket_money_parent = #{user_id}
+          AND pm.pocket_money_status = 'PS_02' OR pm.pocket_money_status = 'PS_04'
+        ORDER BY pm.pocket_money_date DESC
+    </select>
+
+    <update id="acceptPocketMoney" parameterType="String">
+        update hana.pocket_money set pocket_money_status = 'PS_01', pocket_money_title=#{pocket_money_title} where pocket_money_parent=#{user_id} and pocket_money_status='PS_03'
+    </update>
+
+    <update id="sendPocketMoney" parameterType="int">
+        update hana.pocket_money set pocket_money_status = 'PS_02' where pocket_money_id=#{pocketMoneyId}
+    </update>
+
+    <update id="savePointPocketMoney" parameterType="int">
+        update hana.pocket_money set pocket_money_status = 'PS_04' where pocket_money_id=#{pocket_money_id}
+    </update>
+
+    <select id="getPocketStatus" parameterType="String" resultType="PocketMoneyDTO">
+        SELECT pm.*, c.code_name
+        FROM hana.pocket_money pm
+                 INNER JOIN hana.code c
+                            ON pm.pocket_money_status = c.code_id
+        WHERE pm.pocket_money_child = #{user_id}
+          AND pm.pocket_money_status != 'PS_04'
+        ORDER BY pm.pocket_money_date DESC
+    </select>
+</mapper>

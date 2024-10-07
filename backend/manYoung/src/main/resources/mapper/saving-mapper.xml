@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Saving">
+    <insert id="registerSaving" parameterType="ChallengeSaving">
+        insert into hana.challenge_saving(challenge_saving_name, challenge_saving_monthly_amount, challenge_saving_target_amount, challenge_saving_start_date, challenge_saving_end_date, challenge_saving_duration, user_id, acc_num)
+        values(#{challenge_saving_name}, #{challenge_saving_monthly_amount}, #{challenge_saving_target_amount}, #{challenge_saving_start_date}, #{challenge_saving_end_date}, #{challenge_saving_duration}, #{user_id}, #{acc_num})
+    </insert>
+    <select id="getSaving" parameterType="java.util.Map" resultType="ChallengeSaving">
+        SELECT *
+        FROM hana.challenge_saving
+        WHERE user_id=#{user_id} AND #{date} BETWEEN challenge_saving_start_date AND challenge_saving_end_date
+    </select>
+    <select id="getAllChallengeSaving" parameterType="String" resultType="ChallengeSaving">
+        select * from hana.challenge_saving where #{date} BETWEEN challenge_saving_start_date AND challenge_saving_end_date
+    </select>
+</mapper>

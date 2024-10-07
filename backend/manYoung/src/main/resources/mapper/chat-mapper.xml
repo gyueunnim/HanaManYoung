@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Chat">
+    <select id="getRoomId" parameterType="ChatRoomUserDTO" resultType="ChatRoom">
+        SELECT * FROM hana.chat_room where chat_room_id in (
+            SELECT chat_room_id
+            FROM hana.chat_participant
+            WHERE user_id IN (#{user_login_id}, #{friend_login_id})
+            GROUP BY chat_room_id
+            HAVING COUNT(DISTINCT user_id) = 2
+        )
+    </select>
+    <insert id="createChatRoom" parameterType="String" useGeneratedKeys="true" keyProperty="chat_room_id">
+        insert into hana.chat_room(chat_room_date) values(#{chat_room_date})
+    </insert>
+    <insert id="participateChatUser" parameterType="java.util.Map">
+        insert into hana.chat_participant(chat_room_id, user_id, chat_participant_date)
+        values(#{chat_room_id}, #{user_id}, #{date})
+    </insert>
+    <insert id="saveMessage">
+        insert into hana.chat_message(chat_room_id, user_id, chat_message_content, chat_message_time, chat_message_type)
+        values(#{chat_room_id}, #{user_id}, #{chat_message_content}, #{chat_message_time}, #{chat_message_type})
+    </insert>
+    <select id="getMessages" parameterType="int" resultType="ChatMessage">
+        select * from hana.chat_message where chat_room_id=#{chat_room_id} order by chat_message_time asc
+    </select>
+</mapper>

@@ -1,0 +1,110 @@
+{
+  "isSuccess": true,
+  "code": 200,
+  "message": "성공입니다.",
+  "data": {
+    "myRank": [
+      {
+        "title": "우리 학교는?",
+        "rank": 1,
+        "content": "당산서중학교",
+        "score": 230
+      },
+      {
+        "title": "우리 지역은?",
+        "rank": 2,
+        "content": "영등포구",
+        "score": 964
+      },
+      {
+        "title": "내 소비 1위는?",
+        "rank": 5,
+        "content": "편의점/마트",
+        "score": 20
+      }
+    ],
+    "rankSchoolInfo": [
+      {
+        "score": 230,
+        "rank": 1,
+        "name": "당산서중학교"
+      },
+      {
+        "score": 220,
+        "rank": 2,
+        "name": "여의도고등학교"
+      },
+      {
+        "score": 210,
+        "rank": 3,
+        "name": "선유중학교"
+      },
+      {
+        "score": 210,
+        "rank": 4,
+        "name": "문래중학교"
+      },
+      {
+        "score": 210,
+        "rank": 5,
+        "name": "양화중학교"
+      }
+    ],
+    "rankRegionInfo": [
+      {
+        "score": 964,
+        "rank": 1,
+        "name": "서울시 영등포구"
+      },
+      {
+        "score": 720,
+        "rank": 2,
+        "name": "경상북도 포항O시"
+      },
+
+      {
+        "score": 548,
+        "rank": 3,
+        "name": "경기도 수원시"
+      },
+      {
+        "score": 548,
+        "rank": 4,
+        "name": "경기도 김포"
+      },
+      {
+        "score": 548,
+        "rank": 5,
+        "name": "경기도 성남시"
+      }
+    ],
+    "rankCategoryInfo": [
+      {
+        "score": 20,
+        "rank": 1,
+        "name": "편의점/마트"
+      },
+
+      {
+        "score": 14,
+        "rank": 2,
+        "name": "쇼핑/뷰티"
+      },
+      {
+        "score": 9,
+        "rank": 3,
+        "name": "문화/여가"
+      },
+      {
+        "score": 9,
+        "rank": 4,
+        "name": "교통/자동차"
+      },
+      {
+        "score": 9,
+        "rank": 5,
+        "name": "기타"
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PlannerItemsDTO">
+    <select id="getPlannerItems" resultType="PlannerItemsDTO">
+        SELECT *
+        FROM hana.planner_item p
+                 INNER JOIN hana.code c ON p.planner_item_category = c.code_id
+        WHERE p.planner_id = (select planner_id from hana.planner where user_login_id = #{userId} AND planner_date = #{date})
+    </select>
+    <insert id="registerPlannerItems" parameterType="java.util.List">
+        INSERT INTO PLANNER_ITEM(planner_id, planner_item_category, planner_item_amount)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.planner_id}, #{item.planner_item_category}, #{item.planner_item_amount})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Card">
+    <select id="getAllCards" resultType="Card">
+        SELECT * FROM CARD
+    </select>
+    <insert id="registerCard" parameterType="Card">
+        INSERT INTO CARD (
+            CARD_ID,
+            ACC_NUM,
+            CARD_DATE,
+            CARD_NUM,
+            CARD_PW
+        ) VALUES (
+             CARD_SEQ.NEXTVAL,
+             #{acc_num},
+             #{card_date},
+             #{card_num},
+             #{card_pw}
+         )
+    </insert>
+    <select id="Card.getCardByAccNum" parameterType="String" resultType="Card">
+        SELECT * FROM CARD WHERE ACC_NUM = #{accNum}
+    </select>
+</mapper>

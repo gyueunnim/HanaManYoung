@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Rank">
+    <select id="selectRankSchools" resultType="Rank">
+        SELECT user_school AS name, COUNT(*) AS count
+        FROM hana.challenge_record AS cr
+            INNER JOIN hana.user AS u ON cr.user_id = u.user_login_id
+        WHERE cr.challenge_record_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 4 WEEK) AND CURDATE()
+        GROUP BY user_school
+        ORDER BY count DESC
+            LIMIT 5
+    </select>
+    <select id="selectRankRegions" resultType="Rank">
+        SELECT CONCAT(
+                       SUBSTRING_INDEX(user_address, ' ', 2)  -- 첫 두 단어를 추출
+               ) AS name, COUNT(*) AS count
+        FROM hana.challenge_record AS cr
+            INNER JOIN hana.user AS u ON cr.user_id = u.user_login_id
+        WHERE cr.challenge_record_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 4 WEEK) AND CURDATE()
+        GROUP BY CONCAT(
+            SUBSTRING_INDEX(user_address, ' ', 2)  -- 첫 두 단어를 추출
+            )
+        ORDER BY count DESC
+            LIMIT 5
+    </select>
+    <select id="selectRankAges" resultType="Rank">
+        SELECT
+            CONCAT(YEAR(CURDATE()) - (2000 + CAST(SUBSTRING(u.user_rrn, 1, 2) AS UNSIGNED)) + 1, '살') AS name,
+            COUNT(*) AS count
+        FROM hana.challenge_record AS cr
+            INNER JOIN hana.user AS u ON cr.user_id = u.user_login_id
+        WHERE cr.challenge_record_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 4 WEEK) AND CURDATE()
+        GROUP BY CONCAT(YEAR(CURDATE()) - (2000 + CAST(SUBSTRING(u.user_rrn, 1, 2) AS UNSIGNED)) + 1, '살')
+        ORDER BY count DESC
+    </select>
+    <select id="selectRankMySchool" resultType="Rank">
+        SELECT user_school AS name, COUNT(*) AS count
+        FROM hana.challenge_record AS cr
+            INNER JOIN hana.user AS u ON cr.user_id = u.user_login_id
+        WHERE cr.challenge_record_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 4 WEEK) AND CURDATE()
+          AND user_school = (
+            SELECT user_school
+            FROM hana.user
+            WHERE user_login_id=#{user_id}
+            LIMIT 1
+            )
+        GROUP BY user_school
+        ORDER BY count DESC
+    </select>
+    <select id="selectRankMyRegion" resultType="Rank">
+        SELECT CONCAT(
+                       SUBSTRING_INDEX(user_address, ' ', 2)  -- 첫 두 단어를 추출
+               ) AS name, COUNT(*) AS count
+        FROM hana.challenge_record AS cr
+            INNER JOIN hana.user AS u ON cr.user_id = u.user_login_id
+        WHERE cr.challenge_record_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 4 WEEK) AND CURDATE()
+          and SUBSTRING_INDEX(user_address, ' ', 2) = (
+            select SUBSTRING_INDEX(user_address, ' ', 2)
+            from hana.user
+            where user_login_id='t1'
+            limit 5
+            )
+        GROUP BY CONCAT(
+            SUBSTRING_INDEX(user_address, ' ', 2)  -- 첫 두 단어를 추출
+            )
+        ORDER BY count DESC
+            LIMIT 5
+    </select>
+    <select id="selectRankMyAge" resultType="Rank">
+        SELECT
+            CONCAT(YEAR(CURDATE()) - (2000 + CAST(SUBSTRING(u.user_rrn, 1, 2) AS UNSIGNED)) + 1, '살') AS name,
+            COUNT(*) AS count
+        FROM hana.challenge_record AS cr
+            INNER JOIN hana.user AS u ON cr.user_id = u.user_login_id
+        WHERE cr.challenge_record_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 4 WEEK) AND CURDATE()
+          AND SUBSTRING(u.user_rrn, 1, 2) = (
+            SELECT SUBSTRING(user_rrn, 1, 2)
+            FROM hana.user
+            WHERE user_login_id = #{user_id} -- 특정 사용자의 ID로 교체
+            LIMIT 1
+            )
+        GROUP BY CONCAT(YEAR(CURDATE()) - (2000 + CAST(SUBSTRING(u.user_rrn, 1, 2) AS UNSIGNED)) + 1, '살')
+        ORDER BY count DESC
+    </select>
+</mapper>

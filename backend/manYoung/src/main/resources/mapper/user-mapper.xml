@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+    <select id="getAllUsers" resultType="UserDTO">
+        SELECT * FROM hana.USER_TEST ut
+    </select>
+    <select id="getAllUsersWithCode" resultType="UserDTO">
+        SELECT * FROM hana.USER_TEST ut inner join hana.code c on ut.user_st = c.code_id
+    </select>
+    <select id="getUserByUserId" parameterType="String" resultType="User">
+        SELECT * FROM USER WHERE user_login_id = #{user_login_id}
+    </select>
+    <insert id="registerUser" parameterType="User">
+        INSERT INTO user (
+            user_login_id,
+            user_pw,
+            user_name,
+            user_rrn,
+            user_email,
+            user_phone,
+            user_school,
+            user_date,
+            user_st,
+            user_type,
+            user_address
+        ) VALUES (
+             '${user_login_id}',
+             '${user_pw}',
+             #{user_name},
+             #{user_rrn},
+             #{user_email},
+             #{user_phone},
+             #{user_school},
+             #{user_date},
+             #{user_st},
+             #{user_type},
+             #{user_address}
+         )
+    </insert>
+    <select id="searchUser" parameterType="String" resultType="User">
+        select * from hana.user where user_login_id=#{user_id}
+    </select>
+
+    <select id="getUserById" parameterType="String" resultType="UserDTO">
+        SELECT * FROM hana.USER_TEST ut inner join hana.code c on ut.user_st = c.code_id where user_login_id LIKE #{userId}
+    </select>
+    <select id="getUserBySchool" parameterType="String" resultType="UserDTO">
+        SELECT * FROM hana.USER_TEST ut inner join hana.code c on ut.user_st = c.code_id where user_school LIKE #{school}
+    </select>
+    <select id="getUserByName" parameterType="String" resultType="UserDTO">
+        SELECT * FROM hana.USER_TEST ut inner join hana.code c on ut.user_st = c.code_id where user_name LIKE #{userName}
+    </select>
+    <select id="getUserByAddr" parameterType="String" resultType="UserDTO">
+        SELECT * FROM hana.USER_TEST ut inner join hana.code c on ut.user_st = c.code_id where user_address LIKE #{addr}
+    </select>
+</mapper>

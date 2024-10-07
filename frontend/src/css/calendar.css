@@ -1,0 +1,55 @@
+.calendar-container {
+  max-width: 800px;
+  margin: auto;
+  height: 400px;
+}
+
+.fc {
+  height: 100%;
+}
+
+.fc-today-button {
+  display: none !important;
+}
+
+.fc-scrollgrid-sync-inner {
+  font-size: 0.75rem;
+  height: 20px !important;
+}
+
+.fc-daygrid-day-frame {
+}
+
+.fc .fc-toolbar.fc-header-toolbar,
+.fc .fc-toolbar-title {
+  margin: 0px;
+  font-size: 1rem;
+}
+
+.fc .fc-button-primary {
+  color: black;
+  background-color: rgb(236 253 245 / var(--tw-bg-opacity));
+  border-color: rgb(236 253 245 / var(--tw-bg-opacity));
+}
+
+.fc .fc-button-primary:hover,
+.fc .fc-button-primary:focus,
+.fc .fc-button-primary:active {
+  color: black !important;
+  background-color: rgb(236 253 245 / var(--tw-bg-opacity)) !important;
+  border-color: rgb(236 253 245 / var(--tw-bg-opacity)) !important;
+  box-shadow: none !important;
+}
+
+.fc .fc-button .fc-icon {
+  font-size: 1rem;
+}
+
+.fc .fc-view-harness-active > .fc-view {
+  background-color: white;
+}
+
+/* 날짜 셀의 기본 스타일 */
+.fc-daygrid-day {
+  position: relative;
+}

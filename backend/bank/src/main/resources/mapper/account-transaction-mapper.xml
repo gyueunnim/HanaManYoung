@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AccountTransaction">
+    <select id="getAllAccountTransactionsByAccNum" parameterType="String" resultType="AccountTransaction">
+        SELECT * FROM ACCOUNT_TRANSACTION WHERE ACC_NUM = #{accNum}
+    </select>
+    <select id="getAllAccountTransactionByAccNumWithCode" parameterType="String" resultType="AccountTransactionWithCode">
+        select * from account_transaction act inner join code c on act.acc_t_type = c.code_id where act.acc_num = ${accNum} and act.acc_t_date LIKE '${date}' order by act.acc_t_date desc
+    </select>
+    <select id="getAllChallengeTransactionByAccNumWithCode" parameterType="String" resultType="AccountTransactionWithCode">
+        select * from account_transaction act inner join code c on act.acc_t_type = c.code_id where act.acc_num = ${accNum} order by act.acc_t_date desc
+    </select>
+    <insert id="saveReward" parameterType="AccountTransaction">
+        INSERT INTO ACCOUNT_TRANSACTION (
+            acc_t_id,
+            acc_num,
+            acc_t_amount,
+            acc_t_balance,
+            acc_t_date,
+            acc_t_target,
+            acc_t_type
+        )
+        VALUES (
+            account_transaction_seq.nextval,
+           (SELECT acc_num FROM account WHERE user_id=#{user_id} AND acc_type='AT_03'),
+           #{acc_t_amount},
+           (SELECT acc_balance FROM account WHERE user_id=#{user_id} AND acc_type='AT_03'),
+           #{acc_t_date},
+           #{acc_t_target},
+           'ATT_03'
+       )
+    </insert>
+    <select id="getTodayChallenge" resultType="AccountTransaction">
+        select * from ACCOUNT_TRANSACTION where acc_t_date LIKE #{date} AND ACC_T_TYPE='ATT_03' AND ACC_NUM=(SELECT ACC_NUM FROM ACCOUNT WHERE USER_ID=#{user_id} AND ACC_TYPE='AT_03')
+    </select>
+    <insert id="startSavingAT_01" parameterType="java.util.Map">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+             (select acc_num from account where user_id=#{user_id} and ACC_TYPE='AT_01'),
+             #{amount},
+             (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_01'),
+             #{date},
+             '적금 챌린지',
+             'ATT_01')
+    </insert>
+    <insert id="startSavingAT_02" parameterType="java.util.Map">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+            (select acc_num from account where user_id=#{user_id} and ACC_TYPE='AT_02'),
+            #{amount},
+            (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_02'),
+            #{date},
+            '적금 챌린지',
+            'ATT_01')
+    </insert>
+    <insert id="autoTransferAT_01" parameterType="ChallengeSaving">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+             (select acc_num from account where user_id=#{user_id} and acc_type='AT_01'),-#{challenge_saving_monthly_amount},
+             (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_01'),
+             #{date},
+             '적금 챌린지',
+             'ATT_01')
+    </insert>
+    <insert id="autoTransferAT_02" parameterType="ChallengeSaving">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+             (select acc_num from account where user_id=#{user_id} and acc_type='AT_02'), #{challenge_saving_monthly_amount},
+             (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_02'),
+             #{date},
+             '적금 챌린지',
+             'ATT_01')
+    </insert>
+    <insert id="sendPocketMoney">
+        insert into account_transaction
+            (acc_t_id,
+             acc_num,
+             acc_t_amount,
+             acc_t_balance,
+             acc_t_date,
+             acc_t_target,
+             acc_t_type)
+        values(
+             account_transaction_seq.nextval,
+            (select acc_num from account where user_id=#{send_user} and acc_type='AT_01'),
+            -#{amount},
+            (select acc_balance from account where user_id=#{send_user} and acc_type='AT_01'),
+            #{date},
+            #{receive_user_name},
+            'ATT_01'
+              )
+    </insert>
+    <insert id="receivePocketMoney" parameterType="SendMoneyDTO">
+        insert into account_transaction
+        (acc_t_id,
+         acc_num,
+         acc_t_amount,
+         acc_t_balance,
+         acc_t_date,
+         acc_t_target,
+         acc_t_type)
+        values(
+              account_transaction_seq.nextval,
+              (select acc_num from account where user_id=#{receive_user} and acc_type='AT_01'),
+              #{amount},
+              (select acc_balance from account where user_id=#{receive_user} and acc_type='AT_01'),
+              #{date},
+              #{send_user_name},
+              'ATT_01'
+          )
+    </insert>
+
+    <insert id="sendMoney" parameterType="SendMoneyDTO">
+        insert into account_transaction
+        (acc_t_id,
+         acc_num,
+         acc_t_amount,
+         acc_t_balance,
+         acc_t_date,
+         acc_t_target,
+         acc_t_type)
+        values(
+          account_transaction_seq.nextval,
+          (select acc_num from account where user_id=#{sendId} and acc_type='AT_01'),
+          -#{amount},
+          (select acc_balance from account where user_id=#{sendId} and acc_type='AT_01'),
+          #{date},
+          #{targetName},
+          'ATT_01'
+      )
+    </insert>
+    <insert id="receiveMoney">
+        insert into account_transaction
+        (acc_t_id,
+         acc_num,
+         acc_t_amount,
+         acc_t_balance,
+         acc_t_date,
+         acc_t_target,
+         acc_t_type)
+        values(
+          account_transaction_seq.nextval,
+          (select acc_num from account where user_id=#{targetId} and acc_type='AT_01'),
+          #{amount},
+          (select acc_balance from account where user_id=#{targetId} and acc_type='AT_01'),
+          #{date},
+          #{sendName},
+          'ATT_01'
+      )
+    </insert>
+</mapper>

@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "HANA";
+  src: url(./etc/fonts/Hana2-Medium.ttf);
+}
+
+@font-face {
+  font-family: "BASIC";
+  src: url(./etc/fonts/NotoSansKR-Medium.ttf);
+}
+
+body {
+  font-family: "HANA" !important;
+}
+
+.font-hana {
+  font-family: "HANA" !important;
+}
+
+.font-basic {
+  font-family: "BASIC" !important;
+}
+
+.text-hana {
+  color: #069178;
+}
+
+.btn-hana-green {
+  background-color: #069178;
+}
+
+.btn-hana-blue {
+  background-color: #393f57;
+}
+
+.bg-hana {
+  background-color: #fdfdfd;
+}
+
+.animate-dots::after {
+  content: "";
+  display: inline-block;
+  animation: dots 2s steps(4, end) infinite;
+}
+
+.bg-header {
+  background-color: #fcfffe;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    content: ".";
+  }
+  40% {
+    content: "..";
+  }
+  60% {
+    content: "...";
+  }
+  80% {
+    content: "";
+  }
+}
+
+.filter-white {
+  filter: brightness(0) invert(1);
+}

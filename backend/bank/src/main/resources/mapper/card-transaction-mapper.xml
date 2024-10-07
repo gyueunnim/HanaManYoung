@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CardTransaction">
+    <select id="getAllCardTransactionsByCardNum" resultType="CardTransaction" parameterType="String">
+        SELECT * FROM CARD_TRANSACTION WHERE CARD_NUM = #{cardNum} AND CARD_T_DATE LIKE #{date} order by card_t_date desc
+    </select>
+</mapper>

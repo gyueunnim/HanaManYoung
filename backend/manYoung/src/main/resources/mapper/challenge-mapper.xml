@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Challenge">
+    <select id="getChallengeToday" resultType="ChallengeRecordDTO">
+        select * from hana.challenge_record cr inner join hana.code c on c.code_id = cr.challenge_code where user_id = #{user_id} and challenge_record_date like #{date}
+    </select>
+    <select id="getChallengeAll" resultType="ChallengeRecordDTO">
+        select * from hana.challenge_record cr inner join hana.code c on c.code_id = cr.challenge_code where user_id = #{user_id}
+    </select>
+    <select id="getChallengeInfo" resultType="ChallengeInfoDTO">
+        select * from hana.challenge inner join hana.code on hana.challenge.challenge_code = hana.code.code_id
+    </select>
+    <insert id="registerChallengeRecordPlanner" parameterType="String">
+        insert into hana.challenge_record(challenge_code, user_id, challenge_record_date) values('CHT_02', #{user_id}, #{date})
+    </insert>
+    <insert id="registerChallengeRecordTarot" parameterType="String">
+        insert into hana.challenge_record(challenge_code, user_id, challenge_record_date) values('CHT_04', #{user_id}, #{date})
+    </insert>
+    <insert id="registerChallengeRecordQuiz" parameterType="String">
+        insert into hana.challenge_record(challenge_code, user_id, challenge_record_date) values('CHT_01', #{user_id}, #{date})
+    </insert>
+
+    <select id="getAllChallenges" resultType="ChallengeRecordDTO">
+        select * from hana.challenge_record cr inner join hana.code c on c.code_id = cr.challenge_code
+    </select>
+
+    <select id="getChallengeById" resultType="ChallengeRecordDTO" parameterType="String">
+        select * from hana.challenge_record cr inner join hana.code c on c.code_id = cr.challenge_code where user_id=#{userId}
+    </select>
+
+    <select id="getChallengeByName" resultType="ChallengeRecordDTO" parameterType="String">
+        select * from hana.challenge_record cr inner join hana.code c on c.code_id = cr.challenge_code where code_name=#{challengeName}
+    </select>
+
+    <select id="getTotalChallenge" parameterType="String" resultType="int">
+        select count(*) count from hana.challenge_record where user_id=#{userId} group by user_id
+    </select>
+</mapper>

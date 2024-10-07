@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Planner">
+    <select id="getPlanner" resultType="Planner">
+        SELECT * FROM hana.PLANNER WHERE USER_LOGIN_ID = #{userId} AND PLANNER_DATE = #{date}
+    </select>
+
+    <insert id="registerPlanner" parameterType="Planner" useGeneratedKeys="true" keyProperty="planner_id">
+        INSERT INTO PLANNER(user_login_id, planner_amount, planner_date)
+        VALUES(#{user_login_id}, #{planner_amount}, #{planner_date})
+    </insert>
+</mapper>

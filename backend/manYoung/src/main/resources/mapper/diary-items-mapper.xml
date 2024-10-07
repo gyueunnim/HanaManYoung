@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="DiaryItems">
+    <insert id="registerDiaryItems" parameterType="java.util.List">
+        INSERT INTO DIARY_ITEM(diary_id, diary_item_category, diary_item_amount)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.diary_id}, #{item.diary_item_category}, #{item.diary_item_amount})
+        </foreach>
+    </insert>
+
+    <select id="getConsumeData" parameterType="String" resultType="ConsumeDTO">
+        SELECT diary_item_category, SUM(diary_item_amount) as diary_item_amount
+        FROM hana.diary_item
+        WHERE diary_id IN (
+            SELECT diary_id
+            FROM hana.diary
+            WHERE user_login_id = #{user_id}
+        )
+        GROUP BY diary_item_category
+    </select>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Relation">
+    <insert id="registerRequest" parameterType="relation">
+        insert into
+            hana.relation(
+            relation_user_request,
+            relation_user_target,
+            relation_user_type,
+            relation_status,
+            relation_date)
+        values(#{relation_user_request},
+               #{relation_user_target},
+               #{relation_user_type},
+               'RS_01',
+               #{relation_date})
+    </insert>
+    <insert id="registerTarget" parameterType="relation">
+        insert into
+            hana.relation(
+            relation_user_request,
+            relation_user_target,
+            relation_user_type,
+            relation_status,
+            relation_date)
+        values(#{relation_user_target},
+               #{relation_user_request},
+               #{relation_user_type},
+               'RS_03',
+               #{relation_date})
+    </insert>
+    <select id="getRelationList" parameterType="String" resultType="RelationDTO">
+        SELECT
+            r.*,
+            c1.code_name AS relation_status_name,
+            c2.code_name AS relation_user_type_name,
+            u.user_name AS relation_user_name
+        FROM
+            hana.relation r
+                INNER JOIN
+            hana.code c1 ON c1.code_id = r.relation_status
+                INNER JOIN
+            hana.code c2 ON c2.code_id = r.relation_user_type
+                INNER JOIN
+            hana.user u ON u.user_login_id = r.relation_user_target
+        where relation_user_request=#{user_id} and relation_status='RS_01'
+    </select>
+    <select id="getRelationRequestList" parameterType="String" resultType="RelationDTO">
+        SELECT
+            r.*,
+            c1.code_name AS relation_status_name,
+            c2.code_name AS relation_user_type_name,
+            u.user_name AS relation_user_name
+        FROM
+            hana.relation r
+                INNER JOIN
+            hana.code c1 ON c1.code_id = r.relation_status
+                INNER JOIN
+            hana.code c2 ON c2.code_id = r.relation_user_type
+                INNER JOIN
+            hana.user u ON u.user_login_id = r.relation_user_request
+        where relation_user_request=#{user_id} and relation_status='RS_03'
+    </select>
+    <update id="acceptRelation" parameterType="String">
+        update hana.relation set relation_status='RS_01' where relation_user_request=#{relation_user_request} and relation_user_target=#{relation_user_target}
+    </update>
+    <select id="getRelationParent" parameterType="String" resultType="RelationDTO">
+        SELECT
+            r.*,
+            c1.code_name AS relation_status_name,
+            c2.code_name AS relation_user_type_name,
+            u.user_name AS relation_user_name
+        FROM
+            hana.relation r
+                INNER JOIN
+            hana.code c1 ON c1.code_id = r.relation_status
+                INNER JOIN
+            hana.code c2 ON c2.code_id = r.relation_user_type
+                INNER JOIN
+            hana.user u ON u.user_login_id = r.relation_user_target
+        where relation_user_request=#{user_id} and relation_status='RS_01' and relation_user_type='RT_01'
+    </select>
+</mapper>

@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'HANA';
+    src: url("/fonts/Hana2-Medium.ttf");
+}
+
+@font-face {
+    font-family: 'BASIC';
+    src: url("/fonts/NotoSansKR-Medium.ttf");
+}
+
+div, p, h1 {
+    margin: 0;
+}
+
+body {
+    font-family: 'HANA';
+}
+
+.font-basic {
+    font-family: 'BASIC';
+}
+
+.container {
+
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.text-hana {
+    color: #069178;
+}
+
+.mt-10 {
+    margin-top: 15px;
+}
+.box {
+    font-size: 0.9rem ;
+}
+.box > p {
+    margin-left: 5px;
+}
+input {
+    width: 95%;
+    border-radius: 12.5px;
+    height: 50px;
+    font-size: 1.2rem;
+    font-family: 'HANA';
+    padding-left: 15px;
+    color: #696969;
+    border: 2px solid #b0b0b0;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.login-btn {
+    background-color: #069178;
+    border: none;
+    color: white;
+    font-family: 'HANA';
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12.5px;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.login-btn:hover {
+    opacity: 0.8;
+}
+
+.mt-20 {
+    margin-top: 30px;
+}
+
+.register-btn {
+    background-color: #393f57;
+    border: none;
+    color: white;
+    font-family: 'HANA';
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12.5px;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.5s;
+    text-align: center;
+}
+
+.register-btn:hover {
+    opacity: 0.8;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.error-msg {
+    color: red;
+    margin-left: 7.5px;
+    font-size: 0.75rem;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.hana.bank.model.Account" alias="Account"/>
+        <typeAlias type="com.hana.bank.model.AccountTransaction" alias="AccountTransaction"/>
+        <typeAlias type="com.hana.bank.model.Card" alias="Card"/>
+        <typeAlias type="com.hana.bank.model.CardTransaction" alias="CardTransaction"/>
+        <typeAlias type="com.hana.bank.dto.AccountTransactionWithCode" alias="AccountTransactionWithCode"/>
+        <typeAlias type="com.hana.bank.dto.AccountDTO" alias="AccountDTO"/>
+        <typeAlias type="com.hana.bank.dto.RewardRequestDTO" alias="RewardRequestDTO"/>
+        <typeAlias type="com.hana.bank.dto.AccountTotalDTO" alias="AccountTotalDTO"/>
+        <typeAlias type="com.hana.bank.model.ChallengeSaving" alias="ChallengeSaving"/>
+        <typeAlias type="com.hana.bank.dto.RequestPocketMoneyDTO" alias="RequestPocketMoneyDTO"/>
+        <typeAlias type="com.hana.bank.dto.SendMoneyDTO" alias="SendMoneyDTO" />
+    </typeAliases>
+</configuration>

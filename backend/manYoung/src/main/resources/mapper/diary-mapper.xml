@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Diary">
+    <insert id="registerDiary" parameterType="Diary" useGeneratedKeys="true" keyProperty="diary_id">
+        INSERT INTO DIARY(user_login_id, diary_income_amount, diary_expense_amount, diary_date)
+        VALUES(#{user_login_id}, #{diary_income_amount}, #{diary_expense_amount}, #{diary_date})
+    </insert>
+
+    <select id="getMaxDiaryItemCategory" parameterType="String" resultType="DiaryItemMaxDTO">
+        select diary_item_category, sum(diary_item_amount) max from hana.diary_item where diary_id in (select diary_id from hana.diary where user_login_id=#{user_id} and diary_date LIKE #{date}) and diary_item_amount &lt; 0 group by diary_item_category order by max asc;
+    </select>
+</mapper>
