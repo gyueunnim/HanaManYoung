@@ -76,7 +76,7 @@
 [장규은_하나에서만나Young.pdf](https://github.com/user-attachments/files/17272034/_.Young.pdf)
 
 ### 4. 시연 동영상
-<a href="">![image](https://github.com/user-attachments/assets/faf51107-1a56-40a9-9449-b77e983a6738)</a><br/>
+<a href="https://youtu.be/mYR-u4JX8P4">![image](https://github.com/user-attachments/assets/faf51107-1a56-40a9-9449-b77e983a6738)</a><br/>
 
 # 4. 본인 소개
 | 구분           | 내용                       | 비고                                       |
